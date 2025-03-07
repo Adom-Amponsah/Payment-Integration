@@ -5,7 +5,7 @@ const services = [
   {
     category: 'Airtime',
     icon: '📱',
-    color: '#FF6B6B',
+    color: '#3B82F6',
     providers: [
       { id: 'vodacom', name: 'Vodacom', logo: '/path/to/vodacom.png' },
       { id: 'airtel', name: 'Airtel', logo: '/path/to/airtel.png' },
@@ -16,7 +16,7 @@ const services = [
   {
     category: 'Airlines',
     icon: '✈️',
-    color: '#4A90E2',
+    color: '#3B82F6',
     providers: [
       { id: 'ethiopian', name: 'Ethiopian Airlines', logo: '/path/to/ethiopian.png' },
       { id: 'kenya', name: 'Kenya Airways', logo: '/path/to/kenya.png' },
@@ -27,7 +27,7 @@ const services = [
   {
     category: 'Transfers',
     icon: '💸',
-    color: '#45B7D1',
+    color: '#3B82F6',
     providers: [
       { 
         id: 'gtp', 
@@ -40,7 +40,7 @@ const services = [
   {
     category: 'Reservations',
     icon: '🏨',
-    color: '#45B7D1',
+    color: '#3B82F6',
     providers: [
       { id: 'hotels', name: 'Hotels & Lodges', logo: '/path/to/hotels.png' },
       { id: 'car-rental', name: 'Car Rental', logo: '/path/to/car.png' },
@@ -51,7 +51,7 @@ const services = [
   {
     category: 'Internet',
     icon: '🌐',
-    color: '#4ECDC4',
+    color: '#3B82F6',
     providers: [
       { id: 'vodacom-net', name: 'Vodacom', logo: '/path/to/vodacom.png' },
       { id: 'airtel-net', name: 'Airtel', logo: '/path/to/airtel.png' }
@@ -60,13 +60,12 @@ const services = [
   {
     category: 'Utilities',
     icon: '💡',
-    color: '#45B7D1',
+    color: '#3B82F6',
     providers: [
       { id: 'water', name: 'Water Bill', logo: '/path/to/water.png' },
       { id: 'electricity', name: 'Electricity', logo: '/path/to/electricity.png' }
     ]
   },
- 
 ]
 
 const ServiceSelector = ({ onSelect }) => {
@@ -74,17 +73,26 @@ const ServiceSelector = ({ onSelect }) => {
   const [hoveredCategory, setHoveredCategory] = useState(null)
 
   return (
-    <div className="relative w-full">
+    <div className="relative w-full bg-slate-50 p-6 ">
       <motion.div 
         initial={{ scale: 0.9, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
         className="relative z-10"
       >
-        <img 
-          src="/images/logo.png" 
-          alt="Araka" 
-          className="w-32 mx-auto mb-6"
-        />
+        <div className="flex items-center justify-between mb-8">
+          <img 
+            src="/images/logo.png" 
+            alt="Araka" 
+            className="w-32"
+          />
+          <div className="flex items-center gap-2 bg-white px-4 py-2 rounded-lg shadow-sm">
+            <div className="w-2 h-2 rounded-full bg-green-500"></div>
+            <span className="text-sm font-medium text-slate-700">Secure Payment</span>
+          </div>
+        </div>
+        
+        <h2 className="text-xl font-semibold text-slate-800 mb-2">Quick Payments</h2>
+        <p className="text-slate-500 mb-6">Select a service category to proceed with your transaction</p>
         
         <div className="space-y-3">
           {services.map((service) => (
@@ -93,9 +101,9 @@ const ServiceSelector = ({ onSelect }) => {
               initial={false}
               animate={{ 
                 height: selectedCategory === service.category ? 'auto' : '60px',
-                backgroundColor: hoveredCategory === service.category ? '#fff1eb' : '#fff'
+                backgroundColor: hoveredCategory === service.category ? '#F8FAFC' : '#FFFFFF'
               }}
-              className="rounded-xl overflow-hidden shadow-sm border border-orange-100"
+              className="rounded-xl overflow-hidden shadow-sm border border-slate-200"
             >
               <motion.button
                 onHoverStart={() => setHoveredCategory(service.category)}
@@ -109,21 +117,27 @@ const ServiceSelector = ({ onSelect }) => {
                   <motion.div
                     animate={{
                       rotate: selectedCategory === service.category ? 90 : 0,
-                      color: hoveredCategory === service.category ? '#ff4b2b' : '#666'
+                      color: hoveredCategory === service.category ? '#3B82F6' : '#64748B'
                     }}
-                    className="text-2xl"
+                    className="flex items-center justify-center w-10 h-10 rounded-full bg-blue-50"
                   >
-                    {service.icon}
+                    <span className="text-lg">{service.icon}</span>
                   </motion.div>
-                  <span className="font-medium text-gray-700 group-hover:text-orange-500">
-                    {service.category}
-                  </span>
+                  <div className="flex justify-center ml-4">
+                    <span className="font-medium text-slate-700 group-hover:text-blue-600 block">
+                      {service.category}
+                    </span>
+                    {/* <span className="text-xs text-slate-400">
+                      {service.providers.length} options available
+                    </span> */}
+                  </div>
                 </div>
                 <motion.div
                   animate={{ 
                     rotate: selectedCategory === service.category ? 180 : 0,
-                    color: hoveredCategory === service.category ? '#ff4b2b' : '#666'
+                    color: hoveredCategory === service.category ? '#3B82F6' : '#64748B'
                   }}
+                  className="bg-slate-100 rounded-full p-1"
                 >
                   <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
@@ -138,7 +152,7 @@ const ServiceSelector = ({ onSelect }) => {
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: -10 }}
                     transition={{ duration: 0.2 }}
-                    className="p-4 bg-gradient-to-br from-orange-50 to-white"
+                    className="p-4 bg-gradient-to-br from-slate-50 to-white"
                   >
                     <div className="grid grid-cols-2 gap-3">
                       {service.providers.map((provider) => (
@@ -147,18 +161,21 @@ const ServiceSelector = ({ onSelect }) => {
                           whileHover={{ scale: 1.02 }}
                           whileTap={{ scale: 0.98 }}
                           onClick={() => onSelect(provider)}
-                          className="flex items-center gap-3 p-3 rounded-lg bg-white border border-orange-100 hover:border-orange-300 hover:shadow-md transition-all"
+                          className="flex items-center gap-3 p-3 rounded-lg bg-white border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all"
                         >
-                          <div className="w-10 h-10 rounded-full bg-orange-50 flex items-center justify-center">
-                            <img
+                          <div className="w-10 h-10 rounded-full bg-blue-50 flex items-center justify-center">
+                            {/* <img
                               src={provider.logo}
                               alt={provider.name}
                               className="w-6 h-6 object-contain"
-                            />
+                            /> */}
                           </div>
-                          <span className="text-sm font-medium text-gray-700">
-                            {provider.name}
-                          </span>
+                          <div>
+                            <span className="text-sm font-medium text-slate-700 block">
+                              {provider.name}
+                            </span>
+                            {/* <span className="text-xs text-slate-400">Tap to proceed</span> */}
+                          </div>
                         </motion.button>
                       ))}
                     </div>
@@ -170,11 +187,19 @@ const ServiceSelector = ({ onSelect }) => {
         </div>
       </motion.div>
 
-      {/* Decorative Elements */}
-      <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-orange-400/20 to-transparent rounded-full blur-2xl -z-10" />
-      <div className="absolute bottom-0 left-0 w-40 h-40 bg-gradient-to-tr from-orange-500/10 to-transparent rounded-full blur-3xl -z-10" />
+      {/* Banking-style Decorative Elements */}
+      <div className="absolute top-0 right-0 w-40 h-40 bg-gradient-to-br from-blue-400/10 to-transparent rounded-full blur-2xl -z-10" />
+      <div className="absolute bottom-0 left-0 w-40 h-40 bg-gradient-to-tr from-blue-500/5 to-transparent rounded-full blur-3xl -z-10" />
+      
+      {/* Security badge */}
+      <div className="mt-8 flex items-center justify-center gap-2 bg-slate-100 p-3 rounded-lg">
+        <svg className="w-4 h-4 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+        </svg>
+        <span className="text-xs font-medium text-slate-600">Transactions are secured with end-to-end encryption</span>
+      </div>
     </div>
   )
 }
 
-export default ServiceSelector 
+export default ServiceSelector

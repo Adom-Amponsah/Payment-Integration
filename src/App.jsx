@@ -76,7 +76,7 @@ function App() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 via-orange-50 to-primary-50 flex items-center justify-center p-6">
-      <div className="w-[450px] backdrop-blur-xl rounded-3xl shadow-2xl p-8 relative overflow-hidden border border-white/20 bg-white/40">
+      <div className="w-[450px] backdrop-blur-xl rounded-3xl shadow-2xl relative overflow-hidden border border-white/20 bg-slate-50">
         <AnimatePresence mode="wait">
           {step === 'select-service' ? (
             <ServiceSelector onSelect={handleProviderSelect} />
