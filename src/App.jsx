@@ -7,39 +7,77 @@ import AirlineForm from './components/forms/AirlineForm'
 import ReservationForm from './components/forms/ReservationForm'
 import TransferForm from './components/forms/TransferForm'
 import PaymentForm from './components/forms/PaymentForm'
+import UserAuthStep from './components/forms/UserAuthStep'
 
 function App() {
   const [selectedProvider, setSelectedProvider] = useState(null)
   const [step, setStep] = useState('select-service')
   const [paymentDetails, setPaymentDetails] = useState(null)
+  const [transactionData, setTransactionData] = useState(null)
 
   const handleProviderSelect = (provider) => {
+    console.log('Selected Provider:', provider)
     setSelectedProvider(provider)
     setStep('enter-details')
   }
 
   const handleBack = () => {
-    if (step === 'payment') {
-      setStep('enter-details')
-      setPaymentDetails(null)
-    } else {
-      setStep('select-service')
-      setSelectedProvider(null)
+    switch (step) {
+      case 'payment':
+        setStep('enter-details')
+        setPaymentDetails(null)
+        break
+      case 'auth':
+        setStep('payment')
+        break
+      default:
+        setStep('select-service')
+        setSelectedProvider(null)
+        setTransactionData(null)
     }
   }
 
   const handleSubmit = (formData) => {
     setPaymentDetails(formData)
+    setTransactionData({
+      ...formData,
+      provider: selectedProvider
+    })
     setStep('payment')
   }
 
   const handlePaymentSubmit = (paymentData) => {
-    console.log('Payment submitted:', { ...paymentDetails, payment: paymentData })
-    // Handle payment submission
+    setTransactionData(prev => ({
+      ...prev,
+      payment: paymentData
+    }))
+    setStep('auth')
+  }
+
+  const handleAuthComplete = (data) => {
+    console.log('Complete transaction with:', {
+      ...data,
+      provider: selectedProvider,
+      payment: paymentDetails
+    })
+    setStep('select-service')
+    setSelectedProvider(null)
+    setPaymentDetails(null)
+    setTransactionData(null)
   }
 
   const renderForm = () => {
     if (!selectedProvider) return null
+
+    if (step === 'auth') {
+      return (
+        <UserAuthStep
+          transactionData={transactionData}
+          onComplete={handleAuthComplete}
+          onBack={handleBack}
+        />
+      )
+    }
 
     if (step === 'payment') {
       return (
@@ -58,18 +96,26 @@ function App() {
       onBack: handleBack
     }
 
-    switch (selectedProvider.category) {
-      case 'Airtime':
+    const category = selectedProvider?.type || selectedProvider?.category || ''
+    console.log('Provider Category:', category)
+
+    switch (category.toLowerCase()) {
+      case 'airtime':
         return <AirtimeForm {...props} />
-      case 'Airlines':
+      case 'airline':
+      case 'airlines':
         return <AirlineForm {...props} />
-      case 'Reservations':
+      case 'reservation':
+      case 'reservations':
         return <ReservationForm {...props} />
-      case 'Utilities':
+      case 'utility':
+      case 'utilities':
         return <UtilityForm {...props} />
-      case 'Transfers':
+      case 'transfer':
+      case 'transfers':
         return <TransferForm {...props} />
       default:
+        console.log('No matching category found, defaulting to Airtime')
         return <AirtimeForm {...props} />
     }
   }

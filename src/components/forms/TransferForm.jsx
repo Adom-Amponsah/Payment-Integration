@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion'
 import { useState } from 'react'
 
-const TransferForm = ({ onSubmit, onBack }) => {
+const TransferForm = ({ provider, onSubmit, onBack }) => {
   const [formData, setFormData] = useState({
     recipientName: '',
     accountNumber: '',

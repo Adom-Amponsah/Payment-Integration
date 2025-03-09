@@ -160,7 +160,10 @@ const ServiceSelector = ({ onSelect }) => {
                           key={provider.id}
                           whileHover={{ scale: 1.02 }}
                           whileTap={{ scale: 0.98 }}
-                          onClick={() => onSelect(provider)}
+                          onClick={() => onSelect({
+                            ...provider,
+                            category: service.category
+                          })}
                           className="flex items-center gap-3 p-3 rounded-lg bg-white border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all"
                         >
                           <div className="w-10 h-10 rounded-full bg-blue-50 flex items-center justify-center">
