@@ -13,17 +13,17 @@ const services = [
       { id: 'africell', name: 'Africell', logo: '/path/to/africell.png' }
     ]
   },
-  {
-    category: 'Airlines',
-    icon: '✈️',
-    color: '#3B82F6',
-    providers: [
-      { id: 'ethiopian', name: 'Ethiopian Airlines', logo: '/path/to/ethiopian.png' },
-      { id: 'kenya', name: 'Kenya Airways', logo: '/path/to/kenya.png' },
-      { id: 'rwandair', name: 'RwandAir', logo: '/path/to/rwandair.png' },
-      { id: 'air-tanzania', name: 'Air Tanzania', logo: '/path/to/airtanzania.png' }
-    ]
-  },
+  // {
+  //   category: 'Airlines',
+  //   icon: '✈️',
+  //   color: '#3B82F6',
+  //   providers: [
+  //     { id: 'ethiopian', name: 'Ethiopian Airlines', logo: '/path/to/ethiopian.png' },
+  //     { id: 'kenya', name: 'Kenya Airways', logo: '/path/to/kenya.png' },
+  //     { id: 'rwandair', name: 'RwandAir', logo: '/path/to/rwandair.png' },
+  //     { id: 'air-tanzania', name: 'Air Tanzania', logo: '/path/to/airtanzania.png' }
+  //   ]
+  // },
   {
     category: 'Transfers',
     icon: '💸',
@@ -37,17 +37,17 @@ const services = [
       }
     ]
   },
-  {
-    category: 'Reservations',
-    icon: '🏨',
-    color: '#3B82F6',
-    providers: [
-      { id: 'hotels', name: 'Hotels & Lodges', logo: '/path/to/hotels.png' },
-      { id: 'car-rental', name: 'Car Rental', logo: '/path/to/car.png' },
-      { id: 'events', name: 'Event Venues', logo: '/path/to/events.png' },
-      { id: 'restaurants', name: 'Restaurants', logo: '/path/to/restaurants.png' }
-    ]
-  },
+  // {
+  //   category: 'Reservations',
+  //   icon: '🏨',
+  //   color: '#3B82F6',
+  //   providers: [
+  //     { id: 'hotels', name: 'Hotels & Lodges', logo: '/path/to/hotels.png' },
+  //     { id: 'car-rental', name: 'Car Rental', logo: '/path/to/car.png' },
+  //     { id: 'events', name: 'Event Venues', logo: '/path/to/events.png' },
+  //     { id: 'restaurants', name: 'Restaurants', logo: '/path/to/restaurants.png' }
+  //   ]
+  // },
   {
     category: 'Internet',
     icon: '🌐',

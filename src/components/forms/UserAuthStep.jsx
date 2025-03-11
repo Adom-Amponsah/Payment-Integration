@@ -1,5 +1,7 @@
 import { motion } from 'framer-motion'
 import { useState } from 'react'
+import { FaApple, FaFacebook, FaGoogle, FaTwitter } from 'react-icons/fa'
+import SocialButton from '../buttons/SocialButton'
 
 const UserAuthStep = ({ transactionData, onComplete, onBack }) => {
   const [authMode, setAuthMode] = useState('login') // 'login' or 'signup'
@@ -285,6 +287,25 @@ const UserAuthStep = ({ transactionData, onComplete, onBack }) => {
             </>
           )}
         </motion.button>
+
+        {/* Social Login Buttons */}
+        <div className="mt-6">
+          <div className="relative">
+            <div className="absolute inset-0 flex items-center">
+              <div className="w-full border-t border-slate-200"></div>
+            </div>
+            <div className="relative flex justify-center text-sm">
+              <span className="px-2 bg-slate-50 text-slate-500">Or continue with</span>
+            </div>
+          </div>
+
+          <div className="mt-6 flex space-x-3">
+            <SocialButton Icon={FaGoogle} bgColor="bg-red-500" />
+            <SocialButton Icon={FaApple} bgColor="bg-black" />
+            <SocialButton Icon={FaFacebook} bgColor="bg-blue-600" />
+            <SocialButton Icon={FaTwitter} bgColor="bg-blue-600" />
+          </div>
+        </div>
 
         {/* Toggle Link */}
         <div className="text-center mt-4">

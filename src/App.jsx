@@ -8,6 +8,7 @@ import ReservationForm from './components/forms/ReservationForm'
 import TransferForm from './components/forms/TransferForm'
 import PaymentForm from './components/forms/PaymentForm'
 import UserAuthStep from './components/forms/UserAuthStep'
+import InternetForm from './components/forms/InternetForm'
 
 function App() {
   const [selectedProvider, setSelectedProvider] = useState(null)
@@ -114,6 +115,8 @@ function App() {
       case 'transfer':
       case 'transfers':
         return <TransferForm {...props} />
+      case 'internet':
+        return <InternetForm {...props} />
       default:
         console.log('No matching category found, defaulting to Airtime')
         return <AirtimeForm {...props} />
