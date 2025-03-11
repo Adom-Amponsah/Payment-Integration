@@ -1,9 +1,11 @@
 import { motion } from 'framer-motion'
 import { useState } from 'react'
+import { useIntl } from 'react-intl'
 import { FaApple, FaFacebook, FaGoogle, FaTwitter } from 'react-icons/fa'
 import SocialButton from '../buttons/SocialButton'
 
 const UserAuthStep = ({ transactionData, onComplete, onBack }) => {
+  const intl = useIntl()
   const [authMode, setAuthMode] = useState('login') // 'login' or 'signup'
   const [formData, setFormData] = useState({
     email: '',
@@ -94,7 +96,6 @@ const UserAuthStep = ({ transactionData, onComplete, onBack }) => {
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.9 }}
             onClick={onBack}
-            type="button"
             className="w-8 h-8 flex items-center justify-center rounded-full bg-white shadow-md border border-slate-100"
           >
             <svg className="w-4 h-4 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -103,12 +104,18 @@ const UserAuthStep = ({ transactionData, onComplete, onBack }) => {
           </motion.button>
           <div>
             <h2 className="text-lg font-semibold text-slate-800">
-              {authMode === 'login' ? 'Welcome Back' : 'Create Account'}
+              {intl.formatMessage({ 
+                id: authMode === 'login' ? 'auth.signIn' : 'auth.createAccount',
+                defaultMessage: authMode === 'login' ? "Sign In" : "Create Account"
+              })}
             </h2>
             <p className="text-xs text-slate-500">
-              {authMode === 'login' 
-                ? 'Sign in to complete your transaction' 
-                : 'Sign up to manage your payments'}
+              {intl.formatMessage({ 
+                id: authMode === 'login' ? 'auth.signInDesc' : 'auth.createAccountDesc',
+                defaultMessage: authMode === 'login' 
+                  ? "Sign in to complete your transaction" 
+                  : "Create an account to continue"
+              })}
             </p>
           </div>
         </div>
@@ -143,7 +150,7 @@ const UserAuthStep = ({ transactionData, onComplete, onBack }) => {
         {/* Email */}
         <div>
           <label className="block text-sm font-medium text-slate-700 mb-1">
-            Email Address
+            {intl.formatMessage({ id: 'auth.email', defaultMessage: "Email Address" })}
           </label>
           <div className="relative">
             <div className="absolute left-4 top-1/2 -translate-y-1/2">
@@ -156,7 +163,7 @@ const UserAuthStep = ({ transactionData, onComplete, onBack }) => {
               value={formData.email}
               onChange={(e) => setFormData({ ...formData, email: e.target.value })}
               className="w-full pl-12 pr-4 py-3 rounded-lg border border-slate-200 focus:border-orange-500 focus:ring-2 focus:ring-orange-500/20 transition-all duration-200"
-              placeholder="your@email.com"
+              placeholder={intl.formatMessage({ id: 'auth.enterEmail', defaultMessage: "Enter your email" })}
               required
             />
           </div>
@@ -165,7 +172,7 @@ const UserAuthStep = ({ transactionData, onComplete, onBack }) => {
         {/* Password */}
         <div>
           <label className="block text-sm font-medium text-slate-700 mb-1">
-            Password
+            {intl.formatMessage({ id: 'auth.password', defaultMessage: "Password" })}
           </label>
           <div className="relative">
             <div className="absolute left-4 top-1/2 -translate-y-1/2">
@@ -178,7 +185,7 @@ const UserAuthStep = ({ transactionData, onComplete, onBack }) => {
               value={formData.password}
               onChange={(e) => setFormData({ ...formData, password: e.target.value })}
               className="w-full pl-12 pr-4 py-3 rounded-lg border border-slate-200 focus:border-orange-500 focus:ring-2 focus:ring-orange-500/20 transition-all duration-200"
-              placeholder="••••••••"
+              placeholder={intl.formatMessage({ id: 'auth.enterPassword', defaultMessage: "Enter your password" })}
               required
             />
           </div>
@@ -190,7 +197,7 @@ const UserAuthStep = ({ transactionData, onComplete, onBack }) => {
             {/* Confirm Password */}
             <div>
               <label className="block text-sm font-medium text-slate-700 mb-1">
-                Confirm Password
+                {intl.formatMessage({ id: 'auth.confirmPassword', defaultMessage: "Confirm Password" })}
               </label>
               <div className="relative">
                 <div className="absolute left-4 top-1/2 -translate-y-1/2">
@@ -203,7 +210,7 @@ const UserAuthStep = ({ transactionData, onComplete, onBack }) => {
                   value={formData.confirmPassword}
                   onChange={(e) => setFormData({ ...formData, confirmPassword: e.target.value })}
                   className="w-full pl-12 pr-4 py-3 rounded-lg border border-slate-200 focus:border-orange-500 focus:ring-2 focus:ring-orange-500/20 transition-all duration-200"
-                  placeholder="••••••••"
+                  placeholder={intl.formatMessage({ id: 'auth.reenterPassword', defaultMessage: "Re-enter your password" })}
                   required
                 />
               </div>
@@ -212,7 +219,7 @@ const UserAuthStep = ({ transactionData, onComplete, onBack }) => {
             {/* Full Name */}
             <div>
               <label className="block text-sm font-medium text-slate-700 mb-1">
-                Full Name
+                {intl.formatMessage({ id: 'auth.fullName', defaultMessage: "Full Name" })}
               </label>
               <div className="relative">
                 <div className="absolute left-4 top-1/2 -translate-y-1/2">
@@ -225,7 +232,7 @@ const UserAuthStep = ({ transactionData, onComplete, onBack }) => {
                   value={formData.name}
                   onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                   className="w-full pl-12 pr-4 py-3 rounded-lg border border-slate-200 focus:border-orange-500 focus:ring-2 focus:ring-orange-500/20 transition-all duration-200"
-                  placeholder="Your full name"
+                  placeholder={intl.formatMessage({ id: 'auth.enterName', defaultMessage: "Enter your full name" })}
                   required
                 />
               </div>
@@ -234,7 +241,7 @@ const UserAuthStep = ({ transactionData, onComplete, onBack }) => {
             {/* Phone Number */}
             <div>
               <label className="block text-sm font-medium text-slate-700 mb-1">
-                Phone Number
+                {intl.formatMessage({ id: 'auth.phoneNumber', defaultMessage: "Phone Number" })}
               </label>
               <div className="relative">
                 <div className="absolute left-4 top-1/2 -translate-y-1/2">
@@ -247,7 +254,7 @@ const UserAuthStep = ({ transactionData, onComplete, onBack }) => {
                   value={formData.phoneNumber}
                   onChange={(e) => setFormData({ ...formData, phoneNumber: e.target.value })}
                   className="w-full pl-12 pr-4 py-3 rounded-lg border border-slate-200 focus:border-orange-500 focus:ring-2 focus:ring-orange-500/20 transition-all duration-200"
-                  placeholder="Your phone number"
+                  placeholder={intl.formatMessage({ id: 'auth.enterPhone', defaultMessage: "Enter your phone number" })}
                   required
                 />
               </div>
@@ -280,7 +287,10 @@ const UserAuthStep = ({ transactionData, onComplete, onBack }) => {
             </>
           ) : (
             <>
-              <span>{authMode === 'login' ? 'Sign In' : 'Create Account'}</span>
+              <span>{intl.formatMessage({ 
+                id: authMode === 'login' ? 'auth.signIn' : 'auth.createAccount',
+                defaultMessage: authMode === 'login' ? "Sign In" : "Create Account"
+              })}</span>
               <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
               </svg>
@@ -295,7 +305,9 @@ const UserAuthStep = ({ transactionData, onComplete, onBack }) => {
               <div className="w-full border-t border-slate-200"></div>
             </div>
             <div className="relative flex justify-center text-sm">
-              <span className="px-2 bg-slate-50 text-slate-500">Or continue with</span>
+              <span className="px-2 bg-slate-50 text-slate-500">
+                {intl.formatMessage({ id: 'auth.orContinueWith', defaultMessage: "Or continue with" })}
+              </span>
             </div>
           </div>
 
@@ -303,7 +315,7 @@ const UserAuthStep = ({ transactionData, onComplete, onBack }) => {
             <SocialButton Icon={FaGoogle} bgColor="bg-red-500" />
             <SocialButton Icon={FaApple} bgColor="bg-black" />
             <SocialButton Icon={FaFacebook} bgColor="bg-blue-600" />
-            <SocialButton Icon={FaTwitter} bgColor="bg-blue-600" />
+            {/* <SocialButton Icon={FaTwitter} bgColor="bg-blue-400" /> */}
           </div>
         </div>
 
@@ -314,9 +326,12 @@ const UserAuthStep = ({ transactionData, onComplete, onBack }) => {
             onClick={() => setAuthMode(authMode === 'login' ? 'signup' : 'login')}
             className="text-sm text-orange-600 hover:text-orange-700"
           >
-            {authMode === 'login'
-              ? "Don't have an account? Sign up"
-              : "Already have an account? Sign in"}
+            {intl.formatMessage({ 
+              id: authMode === 'login' ? 'auth.noAccount' : 'auth.haveAccount',
+              defaultMessage: authMode === 'login'
+                ? "Don't have an account? Sign up"
+                : "Already have an account? Sign in"
+            })}
           </button>
         </div>
       </form>

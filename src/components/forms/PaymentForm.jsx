@@ -1,7 +1,9 @@
 import { motion, AnimatePresence } from 'framer-motion'
 import { useState } from 'react'
+import { useIntl } from 'react-intl'
 
-const PaymentForm = ({ amount, currency, onBack, onSubmit }) => {
+const PaymentForm = ({ amount, currency = 'USD', onBack, onSubmit }) => {
+    const intl = useIntl()
     const [paymentMethod, setPaymentMethod] = useState(null)
     const [formData, setFormData] = useState({
         mobileNumber: '',
@@ -9,7 +11,8 @@ const PaymentForm = ({ amount, currency, onBack, onSubmit }) => {
         cardNumber: '',
         expiryDate: '',
         cvv: '',
-        saveCard: false
+        saveCard: false,
+        name: ''
     })
 
     // Animation variants
@@ -49,6 +52,11 @@ const PaymentForm = ({ amount, currency, onBack, onSubmit }) => {
         { value: 'airtel', name: 'Airtel Money', color: '#E53935' },
         { value: 'tigopesa', name: 'Vodacom', color: '#2196F3' }
     ]
+
+    const handleSubmit = (e) => {
+        e.preventDefault()
+        onSubmit({ method: 'card', ...formData })
+    }
 
     return (
         <motion.div
@@ -90,8 +98,12 @@ const PaymentForm = ({ amount, currency, onBack, onSubmit }) => {
                         </svg>
                     </motion.button>
                     <div>
-                        <h2 className="text-2xl font-bold text-slate-800 bg-clip-text text-transparent bg-gradient-to-r from-slate-900 to-slate-700">Payment Method</h2>
-                        <p className="text-slate-500 text-sm mt-1">Choose how you'd like to pay</p>
+                        <h2 className="text-2xl font-bold text-slate-800 bg-clip-text text-transparent bg-gradient-to-r from-slate-900 to-slate-700">
+                            {intl.formatMessage({ id: 'payment.method', defaultMessage: "Payment Method" })}
+                        </h2>
+                        <p className="text-slate-500 text-sm mt-1">
+                            {intl.formatMessage({ id: 'payment.chooseMethod', defaultMessage: "Choose how you'd like to pay" })}
+                        </p>
                     </div>
                 </div>
 
@@ -152,8 +164,12 @@ const PaymentForm = ({ amount, currency, onBack, onSubmit }) => {
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z" />
                                 </svg>
                             </div>
-                            <h3 className="font-semibold text-slate-800">Mobile Money</h3>
-                            <p className="text-sm text-slate-500 mt-1">Fast and secure mobile payments</p>
+                            <h3 className="font-semibold text-slate-800">
+                                {intl.formatMessage({ id: 'payment.mobileMoney', defaultMessage: "Mobile Money" })}
+                            </h3>
+                            <p className="text-sm text-slate-500 mt-1">
+                                {intl.formatMessage({ id: 'payment.mobileDesc', defaultMessage: "Fast and secure mobile payments" })}
+                            </p>
 
                             {paymentMethod === 'mobile' && (
                                 <motion.div
@@ -188,8 +204,12 @@ const PaymentForm = ({ amount, currency, onBack, onSubmit }) => {
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />
                                 </svg>
                             </div>
-                            <h3 className="font-semibold text-slate-800">Card Payment</h3>
-                            <p className="text-sm text-slate-500 mt-1">Pay with credit/debit card</p>
+                            <h3 className="font-semibold text-slate-800">
+                                {intl.formatMessage({ id: 'payment.cardPayment', defaultMessage: "Card Payment" })}
+                            </h3>
+                            <p className="text-sm text-slate-500 mt-1">
+                                {intl.formatMessage({ id: 'payment.cardDesc', defaultMessage: "Pay with credit/debit card" })}
+                            </p>
 
                             {paymentMethod === 'card' && (
                                 <motion.div
@@ -227,7 +247,7 @@ const PaymentForm = ({ amount, currency, onBack, onSubmit }) => {
                                 <svg className="w-5 h-5 text-orange-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z" />
                                 </svg>
-                                Mobile Money Details
+                                {intl.formatMessage({ id: 'payment.mobileDetails', defaultMessage: "Mobile Money Details" })}
                             </h3>
 
                             <div className="grid grid-cols-2 md:grid-cols-3 gap-2 md:gap-3 mb-4">
@@ -252,7 +272,7 @@ const PaymentForm = ({ amount, currency, onBack, onSubmit }) => {
 
                             <div className="relative">
                                 <label className="block text-sm font-medium text-slate-700 mb-1.5">
-                                    Mobile Number
+                                    {intl.formatMessage({ id: 'payment.mobileNumber', defaultMessage: "Mobile Number" })}
                                 </label>
                                 <div className="relative">
                                     <div className="absolute left-4 inset-y-0 flex items-center pointer-events-none">
@@ -264,7 +284,7 @@ const PaymentForm = ({ amount, currency, onBack, onSubmit }) => {
                                         type="tel"
                                         value={formData.mobileNumber}
                                         onChange={(e) => setFormData({ ...formData, mobileNumber: e.target.value })}
-                                        placeholder="Enter mobile number"
+                                        placeholder={intl.formatMessage({ id: 'payment.enterMobileNumber', defaultMessage: "Enter mobile number" })}
                                         className="w-full pl-10 md:pl-12 pr-4 py-3 md:py-3.5 rounded-lg border border-slate-200 text-sm md:text-base focus:border-orange-500 focus:ring-2 focus:ring-orange-500/20 transition-all"
                                     />
                                 </div>
@@ -272,7 +292,7 @@ const PaymentForm = ({ amount, currency, onBack, onSubmit }) => {
                                     <svg className="w-3 h-3 md:w-3.5 md:h-3.5 text-orange-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                                     </svg>
-                                    <span>You'll receive a confirmation prompt on your mobile device</span>
+                                    <span>{intl.formatMessage({ id: 'payment.confirmationPrompt', defaultMessage: "You'll receive a confirmation prompt on your mobile device" })}</span>
                                 </p>
                             </div>
                         </div>
@@ -280,7 +300,9 @@ const PaymentForm = ({ amount, currency, onBack, onSubmit }) => {
                         {/* Payment summary */}
                         <div className="bg-slate-50 p-4 rounded-xl border border-slate-200">
                             <div className="flex justify-between items-center">
-                                <span className="text-sm text-slate-600">You'll pay</span>
+                                <span className="text-sm text-slate-600">
+                                    {intl.formatMessage({ id: 'payment.youllPay', defaultMessage: "You'll pay" })}
+                                </span>
                                 <span className="text-lg font-semibold text-slate-800">{currency} {parseFloat(amount).toFixed(2)}</span>
                             </div>
                         </div>
@@ -291,7 +313,7 @@ const PaymentForm = ({ amount, currency, onBack, onSubmit }) => {
                             type="submit"
                             className="w-full py-3 md:py-4 px-4 md:px-6 bg-orange-600 text-white rounded-xl font-medium text-sm md:text-base shadow-xl shadow-orange-500/20 hover:bg-orange-700 transition-all duration-200 flex items-center justify-center gap-2"
                         >
-                            <span>Complete Payment</span>
+                            <span>{intl.formatMessage({ id: 'form.completePayment', defaultMessage: "Complete Payment" })}</span>
                             <svg className="w-4 h-4 md:w-5 md:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                             </svg>
@@ -306,10 +328,7 @@ const PaymentForm = ({ amount, currency, onBack, onSubmit }) => {
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0, y: -20 }}
                         transition={{ duration: 0.4 }}
-                        onSubmit={(e) => {
-                            e.preventDefault()
-                            onSubmit({ method: 'card', ...formData })
-                        }}
+                        onSubmit={handleSubmit}
                         className="space-y-6"
                     >
                         <div className="bg-white p-4 md:p-6 rounded-xl border border-slate-200 shadow-sm space-y-4 md:space-y-5">
@@ -323,7 +342,7 @@ const PaymentForm = ({ amount, currency, onBack, onSubmit }) => {
                             {/* Card Number - Full Width Row */}
                             <div>
                                 <label className="block text-sm font-medium text-slate-700 mb-1.5">
-                                    Card Number
+                                    {intl.formatMessage({ id: 'payment.cardNumber', defaultMessage: "Card Number" })}
                                 </label>
                                 <div className="relative">
                                     <div className="absolute left-4 inset-y-0 flex items-center pointer-events-none">
@@ -348,7 +367,7 @@ const PaymentForm = ({ amount, currency, onBack, onSubmit }) => {
                             <div className="grid grid-cols-2 gap-4">
                                 <div>
                                     <label className="block text-sm font-medium text-slate-700 mb-1.5">
-                                        Expiry Date
+                                        {intl.formatMessage({ id: 'payment.expiryDate', defaultMessage: "Expiry Date" })}
                                     </label>
                                     <input
                                         type="text"
@@ -367,7 +386,7 @@ const PaymentForm = ({ amount, currency, onBack, onSubmit }) => {
 
                                 <div>
                                     <label className="block text-sm font-medium text-slate-700 mb-1.5">
-                                        CVV
+                                        {intl.formatMessage({ id: 'payment.cvv', defaultMessage: "CVV" })}
                                     </label>
                                     <div className="relative">
                                         <input
@@ -409,7 +428,7 @@ const PaymentForm = ({ amount, currency, onBack, onSubmit }) => {
                                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                                     </svg>
                                     <label htmlFor="saveCard" className="ml-2 text-sm text-slate-700 cursor-pointer">
-                                        Save card for future payments
+                                        {intl.formatMessage({ id: 'payment.saveCard', defaultMessage: "Save card for future payments" })}
                                     </label>
                                 </div>
                             </div>
@@ -429,7 +448,7 @@ const PaymentForm = ({ amount, currency, onBack, onSubmit }) => {
                             type="submit"
                             className="w-full py-4 px-6 bg-orange-600 text-white rounded-xl font-medium shadow-xl shadow-orange-500/20 hover:bg-orange-700 transition-all duration-200 flex items-center justify-center gap-2"
                         >
-                            <span>Complete Payment</span>
+                            <span>{intl.formatMessage({ id: 'payment.pay', defaultMessage: "Pay Now" })}</span>
                             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                             </svg>
@@ -449,8 +468,12 @@ const PaymentForm = ({ amount, currency, onBack, onSubmit }) => {
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                             </svg>
                         </div>
-                        <h3 className="text-lg font-medium text-slate-800 mb-2">Choose a Payment Method</h3>
-                        <p className="text-slate-500 text-sm">Select one of the payment options above to continue with your payment.</p>
+                        <h3 className="text-lg font-medium text-slate-800 mb-2">
+                            {intl.formatMessage({ id: 'payment.choosePaymentMethod', defaultMessage: "Choose a Payment Method" })}
+                        </h3>
+                        <p className="text-slate-500 text-sm">
+                            {intl.formatMessage({ id: 'payment.selectOption', defaultMessage: "Select one of the payment options above to continue with your payment." })}
+                        </p>
                     </motion.div>
                 )}
             </AnimatePresence>
@@ -476,7 +499,7 @@ const PaymentForm = ({ amount, currency, onBack, onSubmit }) => {
                     <svg className="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
                     </svg>
-                    <span>Secured with 256-bit encryption</span>
+                    <span>{intl.formatMessage({ id: 'payment.secureConnection', defaultMessage: "Secured with 256-bit encryption" })}</span>
                 </div>
             </motion.div>
 

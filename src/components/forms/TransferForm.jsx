@@ -1,7 +1,9 @@
 import { motion } from 'framer-motion'
 import { useState } from 'react'
+import { useIntl } from 'react-intl'
 
 const TransferForm = ({ provider, onSubmit, onBack }) => {
+  const intl = useIntl()
   const [formData, setFormData] = useState({
     recipientName: '',
     accountNumber: '',
@@ -74,7 +76,9 @@ const TransferForm = ({ provider, onSubmit, onBack }) => {
       <div className="flex items-center justify-between mb-6">
         <div className="flex items-center gap-2">
           <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse"></div>
-          <span className="text-xs font-medium text-slate-600">Secure Transfer</span>
+          <span className="text-xs font-medium text-slate-600">
+            {intl.formatMessage({ id: 'app.secureConnection', defaultMessage: "Secure Connection" })}
+          </span>
         </div>
         <div className="text-xs text-slate-500 flex items-center gap-1">
           <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -106,9 +110,11 @@ const TransferForm = ({ provider, onSubmit, onBack }) => {
             </div>
             <div>
               <h2 className="text-lg font-semibold text-slate-800">
-                Money Transfer
+                {provider.name} {intl.formatMessage({ id: 'category.transfers', defaultMessage: "Transfer" })}
               </h2>
-              <p className="text-xs text-slate-500">Instant & Secure</p>
+              <p className="text-xs text-slate-500">
+                {intl.formatMessage({ id: 'transfer.moneyTransfer', defaultMessage: "Send money securely" })}
+              </p>
             </div>
           </div>
         </div>
@@ -126,7 +132,7 @@ const TransferForm = ({ provider, onSubmit, onBack }) => {
                 animate={{ x: 0, opacity: 1 }}
                 className="block text-sm font-medium text-slate-700 mb-1"
               >
-                Recipient Name
+                {intl.formatMessage({ id: 'transfer.recipientName', defaultMessage: "Recipient Name" })}
               </motion.label>
               <motion.div
                 whileFocus={{ scale: 1.01 }}
@@ -142,7 +148,7 @@ const TransferForm = ({ provider, onSubmit, onBack }) => {
                   value={formData.recipientName}
                   onChange={(e) => setFormData({ ...formData, recipientName: e.target.value })}
                   className="w-full pl-12 pr-4 py-3 rounded-lg border border-slate-200 focus:border-orange-500 focus:ring-2 focus:ring-orange-500/20 transition-all duration-200 bg-white"
-                  placeholder="Enter recipient's full name"
+                  placeholder={intl.formatMessage({ id: 'transfer.enterRecipientName', defaultMessage: "Enter recipient's name" })}
                   required
                 />
               </motion.div>
@@ -155,7 +161,7 @@ const TransferForm = ({ provider, onSubmit, onBack }) => {
                 animate={{ x: 0, opacity: 1 }}
                 className="block text-sm font-medium text-slate-700 mb-1"
               >
-                Account Number
+                {intl.formatMessage({ id: 'transfer.accountNumber', defaultMessage: "Account Number" })}
               </motion.label>
               <motion.div
                 whileFocus={{ scale: 1.01 }}
@@ -171,7 +177,7 @@ const TransferForm = ({ provider, onSubmit, onBack }) => {
                   value={formData.accountNumber}
                   onChange={(e) => setFormData({ ...formData, accountNumber: e.target.value })}
                   className="w-full pl-12 pr-4 py-3 rounded-lg border border-slate-200 focus:border-orange-500 focus:ring-2 focus:ring-orange-500/20 transition-all duration-200 bg-white"
-                  placeholder="Enter account number"
+                  placeholder={intl.formatMessage({ id: 'transfer.enterAccountNumber', defaultMessage: "Enter account number" })}
                   required
                 />
                 <motion.div 
@@ -194,7 +200,7 @@ const TransferForm = ({ provider, onSubmit, onBack }) => {
                   animate={{ x: 0, opacity: 1 }}
                   className="block text-sm font-medium text-slate-700 mb-1"
                 >
-                  Amount
+                  {intl.formatMessage({ id: 'form.amount', defaultMessage: "Amount" })}
                 </motion.label>
                 <div className="relative">
                   <div className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400">
@@ -207,7 +213,7 @@ const TransferForm = ({ provider, onSubmit, onBack }) => {
                     value={formData.amount}
                     onChange={(e) => setFormData({ ...formData, amount: e.target.value })}
                     className="w-full pl-11 py-3 rounded-lg border border-slate-200 focus:border-orange-500 focus:ring-2 focus:ring-orange-500/20"
-                    placeholder="0.00"
+                    placeholder={intl.formatMessage({ id: 'form.enterAmount', defaultMessage: "Enter amount" })}
                     required
                   />
                 </div>
@@ -274,7 +280,9 @@ const TransferForm = ({ provider, onSubmit, onBack }) => {
             type="submit"
             className="w-full py-4 px-6 bg-orange-600 text-white rounded-xl font-medium shadow-xl shadow-orange-500/20 hover:shadow-orange-500/30 transition-all duration-200 flex items-center justify-center gap-2 overflow-hidden group"
           >
-            <span>Complete Transfer</span>
+            <span>
+              {intl.formatMessage({ id: 'form.proceed', defaultMessage: "Proceed to Payment" })}
+            </span>
             <div className="relative w-5 h-5">
               <motion.svg 
                 className="w-5 h-5 absolute"

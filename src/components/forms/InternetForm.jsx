@@ -1,7 +1,9 @@
 import { motion } from 'framer-motion'
 import { useState } from 'react'
+import { useIntl } from 'react-intl'
 
 const InternetForm = ({ provider, onSubmit, onBack }) => {
+  const intl = useIntl()
   const [formData, setFormData] = useState({
     phoneNumber: '',
     packageType: 'data', // 'data' or 'wifi'
@@ -12,16 +14,16 @@ const InternetForm = ({ provider, onSubmit, onBack }) => {
 
   const internetPlans = {
     data: [
-      { id: '1gb', name: '1GB', validity: '24 Hours', price: 1 },
-      { id: '5gb', name: '5GB', validity: '7 Days', price: 5 },
-      { id: '10gb', name: '10GB', validity: '30 Days', price: 10 },
-      { id: 'unlimited', name: 'Unlimited', validity: '30 Days', price: 30 }
+      { id: '1gb', name: '1GB', validity: intl.formatMessage({ id: 'internet.validity', defaultMessage: "24 Hours" }), price: 1 },
+      { id: '5gb', name: '5GB', validity: intl.formatMessage({ id: 'internet.validity', defaultMessage: "7 Days" }), price: 5 },
+      { id: '10gb', name: '10GB', validity: intl.formatMessage({ id: 'internet.validity', defaultMessage: "30 Days" }), price: 10 },
+      { id: 'unlimited', name: intl.formatMessage({ id: 'internet.unlimited', defaultMessage: "Unlimited" }), validity: intl.formatMessage({ id: 'internet.validity', defaultMessage: "30 Days" }), price: 30 }
     ],
     wifi: [
-      { id: 'basic', name: 'Basic', speed: '10 Mbps', price: 20 },
-      { id: 'standard', name: 'Standard', speed: '25 Mbps', price: 35 },
-      { id: 'premium', name: 'Premium', speed: '50 Mbps', price: 50 },
-      { id: 'ultra', name: 'Ultra', speed: '100 Mbps', price: 75 }
+      { id: 'basic', name: intl.formatMessage({ id: 'internet.basic', defaultMessage: "Basic" }), speed: '10 Mbps', price: 20 },
+      { id: 'standard', name: intl.formatMessage({ id: 'internet.standard', defaultMessage: "Standard" }), speed: '25 Mbps', price: 35 },
+      { id: 'premium', name: intl.formatMessage({ id: 'internet.premium', defaultMessage: "Premium" }), speed: '50 Mbps', price: 50 },
+      { id: 'ultra', name: intl.formatMessage({ id: 'internet.ultra', defaultMessage: "Ultra" }), speed: '100 Mbps', price: 75 }
     ]
   }
 
@@ -64,7 +66,9 @@ const InternetForm = ({ provider, onSubmit, onBack }) => {
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
             <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse"></div>
-            <span className="text-xs font-medium text-slate-600">Secure Connection</span>
+            <span className="text-xs font-medium text-slate-600">
+              {intl.formatMessage({ id: 'app.secureConnection', defaultMessage: "Secure Connection" })}
+            </span>
           </div>
           <div className="text-xs text-slate-500 flex items-center gap-1">
             <motion.div
@@ -74,7 +78,7 @@ const InternetForm = ({ provider, onSubmit, onBack }) => {
             >
               🌐
             </motion.div>
-            <span>High Speed</span>
+            <span>{intl.formatMessage({ id: 'internet.highSpeed', defaultMessage: "High Speed" })}</span>
           </div>
         </div>
       </div>
@@ -93,14 +97,16 @@ const InternetForm = ({ provider, onSubmit, onBack }) => {
             </svg>
           </motion.button>
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-full bg-gradient-to-br from-blue-500 to-purple-500 flex items-center justify-center text-white text-lg">
+            <div className="w-10 h-10 rounded-full bg-gradient-to-br from-orange-500 to-amber-500 flex items-center justify-center text-white text-lg">
               📶
             </div>
             <div>
               <h2 className="text-lg font-semibold text-slate-800">
-                {provider.name} Internet
+                {provider.name} {intl.formatMessage({ id: 'category.internet', defaultMessage: "Internet" })}
               </h2>
-              <p className="text-xs text-slate-500">Select your preferred plan</p>
+              <p className="text-xs text-slate-500">
+                {intl.formatMessage({ id: 'internet.selectPlan', defaultMessage: "Select your preferred plan" })}
+              </p>
             </div>
           </div>
         </div>
@@ -109,7 +115,10 @@ const InternetForm = ({ provider, onSubmit, onBack }) => {
       <form onSubmit={handleSubmit} className="space-y-6">
         {/* Package Type Toggle */}
         <div className="bg-white rounded-lg p-1 flex shadow-sm">
-          {['data', 'wifi'].map((type) => (
+          {[
+            { type: 'data', label: intl.formatMessage({ id: 'internet.mobileData', defaultMessage: "📱 Mobile Data" }) },
+            { type: 'wifi', label: intl.formatMessage({ id: 'internet.wifiPackage', defaultMessage: "📡 WiFi Package" }) }
+          ].map(({ type, label }) => (
             <button
               key={type}
               type="button"
@@ -120,7 +129,7 @@ const InternetForm = ({ provider, onSubmit, onBack }) => {
                   : 'text-slate-500 hover:text-slate-700'
               }`}
             >
-              {type === 'data' ? '📱 Mobile Data' : '📡 WiFi Package'}
+              {label}
             </button>
           ))}
         </div>
@@ -234,7 +243,9 @@ const InternetForm = ({ provider, onSubmit, onBack }) => {
           disabled={!formData.plan}
           className="w-full py-4 px-6 bg-orange-600 text-white rounded-xl font-medium shadow-xl shadow-orange-500/20 hover:shadow-orange-500/30 transition-all duration-200 flex items-center justify-center gap-2 disabled:opacity-70"
         >
-          <span>Proceed to Payment</span>
+          <span>
+            {intl.formatMessage({ id: 'form.proceed', defaultMessage: "Proceed to Payment" })}
+          </span>
           <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
           </svg>

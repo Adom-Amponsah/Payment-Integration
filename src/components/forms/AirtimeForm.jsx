@@ -1,7 +1,9 @@
 import { motion } from 'framer-motion'
 import { useState } from 'react'
+import { useIntl } from 'react-intl'
 
 const AirtimeForm = ({ provider, onSubmit, onBack }) => {
+  const intl = useIntl()
   const [formData, setFormData] = useState({
     phoneNumber: '',
     amount: '',
@@ -39,7 +41,9 @@ const AirtimeForm = ({ provider, onSubmit, onBack }) => {
       <div className="flex items-center justify-between mb-6">
         <div className="flex items-center gap-2">
           <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse"></div>
-          <span className="text-xs font-medium text-slate-600">Secure Transaction</span>
+          <span className="text-xs font-medium text-slate-600">
+            {intl.formatMessage({ id: 'app.secureConnection', defaultMessage: "Secure Connection" })}
+          </span>
         </div>
         <div className="text-xs text-slate-500 flex items-center gap-1">
           <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -75,7 +79,9 @@ const AirtimeForm = ({ provider, onSubmit, onBack }) => {
               <h2 className="text-lg font-semibold text-slate-800">
                 {provider.name}
               </h2>
-              <p className="text-xs text-slate-500">Airtime Purchase</p>
+              <p className="text-xs text-slate-500">
+                {intl.formatMessage({ id: 'airtime.topup', defaultMessage: "Mobile top-up" })}
+              </p>
             </div>
           </div>
         </div>
@@ -97,7 +103,7 @@ const AirtimeForm = ({ provider, onSubmit, onBack }) => {
               animate={{ x: 0, opacity: 1 }}
               className="block text-sm font-medium text-slate-700 mb-1"
             >
-              Phone Number
+              {intl.formatMessage({ id: 'form.phoneNumber', defaultMessage: "Phone Number" })}
             </motion.label>
             <motion.div
               whileFocus={{ scale: 1.01 }}
@@ -113,10 +119,12 @@ const AirtimeForm = ({ provider, onSubmit, onBack }) => {
                 value={formData.phoneNumber}
                 onChange={(e) => setFormData({ ...formData, phoneNumber: e.target.value })}
                 className="w-full pl-12 pr-4 py-3 rounded-lg border border-slate-200 focus:border-orange-500 focus:ring-2 focus:ring-orange-500/20 transition-all duration-200 bg-white"
-                placeholder="Enter phone number"
+                placeholder={intl.formatMessage({ id: 'form.enterPhoneNumber', defaultMessage: "Enter phone number" })}
               />
               <div className="absolute right-3 top-1/2 -translate-y-1/2 flex items-center gap-2">
-                <span className="text-xs text-slate-400">Verified</span>
+                <span className="text-xs text-slate-400">
+                  {intl.formatMessage({ id: 'form.verified', defaultMessage: "Verified" })}
+                </span>
                 <svg className="w-4 h-4 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                 </svg>
@@ -126,7 +134,9 @@ const AirtimeForm = ({ provider, onSubmit, onBack }) => {
 
           {/* Amount and Currency */}
           <div className="bg-white p-4 rounded-xl border border-slate-200 shadow-sm">
-            <h3 className="text-sm font-medium text-slate-700 mb-3">Transaction Details</h3>
+            <h3 className="text-sm font-medium text-slate-700 mb-3">
+              {intl.formatMessage({ id: 'form.transactionDetails', defaultMessage: "Transaction Details" })}
+            </h3>
             <div className="grid grid-cols-2 gap-4">
               <div className="relative">
                 <motion.label
@@ -134,7 +144,7 @@ const AirtimeForm = ({ provider, onSubmit, onBack }) => {
                   animate={{ x: 0, opacity: 1 }}
                   className="block text-xs font-medium text-slate-600 mb-1"
                 >
-                  Amount
+                  {intl.formatMessage({ id: 'form.amount', defaultMessage: "Amount" })}
                 </motion.label>
                 <div className="relative">
                   <div className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400">
@@ -147,7 +157,7 @@ const AirtimeForm = ({ provider, onSubmit, onBack }) => {
                     value={formData.amount}
                     onChange={(e) => setFormData({ ...formData, amount: e.target.value })}
                     className="w-full pl-11 py-3 rounded-lg border border-slate-200 focus:border-orange-500 focus:ring-2 focus:ring-orange-500/20 text-right pr-4"
-                    placeholder="0.00"
+                    placeholder={intl.formatMessage({ id: 'form.enterAmount', defaultMessage: "0.00" })}
                   />
                 </div>
               </div>
@@ -158,7 +168,7 @@ const AirtimeForm = ({ provider, onSubmit, onBack }) => {
                   animate={{ x: 0, opacity: 1 }}
                   className="block text-xs font-medium text-slate-600 mb-1"
                 >
-                  Currency
+                  {intl.formatMessage({ id: 'form.currency', defaultMessage: "Currency" })}
                 </motion.label>
                 <div className="relative">
                   <select
@@ -180,7 +190,9 @@ const AirtimeForm = ({ provider, onSubmit, onBack }) => {
             </div>
             <div className="mt-4 pt-3 border-t border-slate-100">
               <div className="flex justify-between items-center">
-                <span className="text-sm text-slate-500">Processing Fee</span>
+                <span className="text-sm text-slate-500">
+                  {intl.formatMessage({ id: 'form.processingFee', defaultMessage: "Processing Fee" })}
+                </span>
                 <span className="text-sm font-medium text-slate-700">$0.50</span>
               </div>
             </div>
@@ -189,7 +201,9 @@ const AirtimeForm = ({ provider, onSubmit, onBack }) => {
           {/* Payment summary */}
           <div className="bg-orange-50 p-4 rounded-xl border border-orange-100">
             <div className="flex justify-between items-center mb-2">
-              <span className="text-sm text-slate-700">Total Amount</span>
+              <span className="text-sm text-slate-700">
+                {intl.formatMessage({ id: 'form.totalAmount', defaultMessage: "Total Amount" })}
+              </span>
               <span className="text-lg font-semibold text-slate-800">
                 {formData.amount ? `${formData.currency} ${(parseFloat(formData.amount) + 0.50).toFixed(2)}` : `${formData.currency} 0.00`}
               </span>
@@ -198,7 +212,9 @@ const AirtimeForm = ({ provider, onSubmit, onBack }) => {
               <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
               </svg>
-              <span>Includes processing fee and taxes</span>
+              <span>
+                {intl.formatMessage({ id: 'form.includesFees', defaultMessage: "Includes processing fee and taxes" })}
+              </span>
             </div>
           </div>
 
@@ -209,7 +225,7 @@ const AirtimeForm = ({ provider, onSubmit, onBack }) => {
             type="submit"
             className="w-full py-4 px-6 bg-orange-600 text-white rounded-xl font-medium shadow-xl shadow-orange-500/20 hover:shadow-orange-500/30 transition-all duration-200 flex items-center justify-center gap-2"
           >
-            <span>Proceed to Payment</span>
+            <span>{intl.formatMessage({ id: 'form.proceed', defaultMessage: "Proceed to Payment" })}</span>
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
             </svg>

@@ -1,7 +1,9 @@
 import { motion } from 'framer-motion'
 import { useState } from 'react'
+import { useIntl } from 'react-intl'
 
 const UtilityForm = ({ provider, onSubmit, onBack }) => {
+  const intl = useIntl()
   const [formData, setFormData] = useState({
     meterNumber: '',
     amount: '',
@@ -41,7 +43,9 @@ const UtilityForm = ({ provider, onSubmit, onBack }) => {
       <div className="flex items-center justify-between mb-6">
         <div className="flex items-center gap-2">
           <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse"></div>
-          <span className="text-xs font-medium text-slate-600">Secure Transaction</span>
+          <span className="text-xs font-medium text-slate-600">
+            {intl.formatMessage({ id: 'app.secureTransaction', defaultMessage: "Secure Transaction" })}
+          </span>
         </div>
         <div className="text-xs text-slate-500 flex items-center gap-1">
           <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -79,7 +83,9 @@ const UtilityForm = ({ provider, onSubmit, onBack }) => {
               <h2 className="text-lg font-semibold text-slate-800">
                 {provider.name}
               </h2>
-              <p className="text-xs text-slate-500">Utility Payment</p>
+              <p className="text-xs text-slate-500">
+                {intl.formatMessage({ id: 'utility.payment', defaultMessage: "Utility Payment" })}
+              </p>
             </div>
           </div>
         </div>
@@ -149,7 +155,7 @@ const UtilityForm = ({ provider, onSubmit, onBack }) => {
               animate={{ x: 0, opacity: 1 }}
               className="block text-sm font-medium text-slate-700 mb-1"
             >
-              Meter Number
+              {intl.formatMessage({ id: 'utility.meterNumber', defaultMessage: "Meter Number" })}
             </motion.label>
             <motion.div
               whileFocus={{ scale: 1.01 }}
@@ -165,7 +171,7 @@ const UtilityForm = ({ provider, onSubmit, onBack }) => {
                 value={formData.meterNumber}
                 onChange={(e) => setFormData({ ...formData, meterNumber: e.target.value })}
                 className="w-full pl-12 pr-4 py-3 rounded-lg border border-slate-200 focus:border-orange-500 focus:ring-2 focus:ring-orange-500/20 transition-all duration-200 bg-white"
-                placeholder="Enter meter number"
+                placeholder={intl.formatMessage({ id: 'utility.enterMeterNumber', defaultMessage: "Enter meter number" })}
               />
               <motion.div 
                 animate={{ 
@@ -175,7 +181,9 @@ const UtilityForm = ({ provider, onSubmit, onBack }) => {
                 transition={{ duration: 2, repeat: Infinity }}
                 className="absolute right-3 top-1/2 -translate-y-1/2 flex items-center gap-2"
               >
-                <span className="text-xs text-slate-400">Scanning</span>
+                <span className="text-xs text-slate-400">
+                  {intl.formatMessage({ id: 'utility.scanning', defaultMessage: "Scanning" })}
+                </span>
                 <svg className="w-4 h-4 text-orange-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 4v16M7 4v16M11 4v16M15 4v16M19 4v16" />
                 </svg>
@@ -190,7 +198,7 @@ const UtilityForm = ({ provider, onSubmit, onBack }) => {
               animate={{ x: 0, opacity: 1 }}
               className="block text-sm font-medium text-slate-700 mb-1"
             >
-              Account Name
+              {intl.formatMessage({ id: 'utility.accountName', defaultMessage: "Account Name" })}
             </motion.label>
             <motion.div
               whileFocus={{ scale: 1.01 }}
@@ -206,14 +214,16 @@ const UtilityForm = ({ provider, onSubmit, onBack }) => {
                 value={formData.accountName}
                 onChange={(e) => setFormData({ ...formData, accountName: e.target.value })}
                 className="w-full pl-12 pr-4 py-3 rounded-lg border border-slate-200 focus:border-orange-500 focus:ring-2 focus:ring-orange-500/20 transition-all duration-200 bg-white"
-                placeholder="Name on utility account"
+                placeholder={intl.formatMessage({ id: 'utility.enterAccountName', defaultMessage: "Name on utility account" })}
               />
             </motion.div>
           </div>
 
           {/* Amount and Currency */}
           <div className="bg-white p-4 rounded-xl border border-slate-200 shadow-sm">
-            <h3 className="text-sm font-medium text-slate-700 mb-3">Payment Details</h3>
+            <h3 className="text-sm font-medium text-slate-700 mb-3">
+              {intl.formatMessage({ id: 'payment.details', defaultMessage: "Payment Details" })}
+            </h3>
             <div className="grid grid-cols-2 gap-4">
               <div className="relative">
                 <motion.label
@@ -221,7 +231,7 @@ const UtilityForm = ({ provider, onSubmit, onBack }) => {
                   animate={{ x: 0, opacity: 1 }}
                   className="block text-xs font-medium text-slate-600 mb-1"
                 >
-                  Amount
+                  {intl.formatMessage({ id: 'form.amount', defaultMessage: "Amount" })}
                 </motion.label>
                 <div className="relative">
                   <div className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400">$</div>
@@ -241,7 +251,7 @@ const UtilityForm = ({ provider, onSubmit, onBack }) => {
                   animate={{ x: 0, opacity: 1 }}
                   className="block text-xs font-medium text-slate-600 mb-1"
                 >
-                  Currency
+                  {intl.formatMessage({ id: 'form.currency', defaultMessage: "Currency" })}
                 </motion.label>
                 <select
                   value={formData.currency}
@@ -256,7 +266,9 @@ const UtilityForm = ({ provider, onSubmit, onBack }) => {
             </div>
             <div className="mt-4 pt-3 border-t border-slate-100">
               <div className="flex justify-between items-center">
-                <span className="text-sm text-slate-500">Service Fee</span>
+                <span className="text-sm text-slate-500">
+                  {intl.formatMessage({ id: 'form.serviceFee', defaultMessage: "Service Fee" })}
+                </span>
                 <span className="text-sm font-medium text-slate-700">$1.25</span>
               </div>
             </div>
@@ -299,7 +311,9 @@ const UtilityForm = ({ provider, onSubmit, onBack }) => {
           {/* Payment summary */}
           <div className="bg-orange-50 p-4 rounded-xl border border-orange-100">
             <div className="flex justify-between items-center mb-2">
-              <span className="text-sm text-slate-700">Total Payment</span>
+              <span className="text-sm text-slate-700">
+                {intl.formatMessage({ id: 'payment.totalPayment', defaultMessage: "Total Payment" })}
+              </span>
               <span className="text-lg font-semibold text-slate-800">
                 {formData.amount ? `${formData.currency} ${(parseFloat(formData.amount) + 1.25).toFixed(2)}` : `${formData.currency} 0.00`}
               </span>
@@ -308,7 +322,9 @@ const UtilityForm = ({ provider, onSubmit, onBack }) => {
               <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
               </svg>
-              <span>Includes service fee and taxes</span>
+              <span>
+                {intl.formatMessage({ id: 'payment.includesServiceFeeAndTaxes', defaultMessage: "Includes service fee and taxes" })}
+              </span>
             </div>
           </div>
 
@@ -319,7 +335,9 @@ const UtilityForm = ({ provider, onSubmit, onBack }) => {
             type="submit"
             className="w-full py-4 px-6 bg-orange-600 text-white rounded-xl font-medium shadow-xl shadow-orange-500/20 hover:shadow-orange-500/30 transition-all duration-200 flex items-center justify-center gap-2"
           >
-            <span>Complete Payment</span>
+            <span>
+              {intl.formatMessage({ id: 'form.completePayment', defaultMessage: "Complete Payment" })}
+            </span>
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
             </svg>
@@ -341,7 +359,9 @@ const UtilityForm = ({ provider, onSubmit, onBack }) => {
             </svg>
           </div>
           <div>
-            <h3 className="text-sm font-medium text-slate-700">Energy Saving Tip</h3>
+            <h3 className="text-sm font-medium text-slate-700">
+              {intl.formatMessage({ id: 'utility.energySavingTip', defaultMessage: "Energy Saving Tip" })}
+            </h3>
             <p className="text-xs text-slate-500 mt-1">
               {formData.utilityType === 'electricity' && "LED bulbs use up to 90% less energy than traditional bulbs and last 15 times longer."}
               {formData.utilityType === 'water' && "Fixing a leaky faucet can save up to 3,000 gallons of water per year."}
